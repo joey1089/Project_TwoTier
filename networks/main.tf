@@ -38,11 +38,11 @@ resource "aws_subnet" "public_subnets" {
 }
 
 resource "aws_subnet" "private_subnets" {
-  count             = var.private_sn_count
-  vpc_id            = aws_vpc.main_vpc.id
-  cidr_block        = var.private_cidrs[count.index]
+  count                   = var.private_sn_count
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = var.private_cidrs[count.index]
   map_public_ip_on_launch = false
-  availability_zone = random_shuffle.random_shufle_az.result[count.index]
+  availability_zone       = random_shuffle.random_shufle_az.result[count.index]
   tags = {
     Name = "private-subnet-${count.index + 1}"
   }

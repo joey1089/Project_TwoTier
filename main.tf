@@ -77,10 +77,10 @@ module "database_rds" {
   db_storage             = 20 # minimum required by aws, free upto 100GB
   db_engine_version      = "5.7"
   db_instance_class      = "db.t2.micro"
-  db_name                =  var.db_name #"mysql_rds"
-  dbuser                 =  var.dbuser #"myuser"
+  db_name                = var.db_name    #"mysql_rds"
+  dbuser                 = var.dbuser     #"myuser"
   dbpassword             = var.dbpassword #"nopassword"
-  dbidentifier          = "myrds-db"
+  dbidentifier           = "myrds-db"
   skip_final_snapshot    = true
   db_subnet_group_name   = module.networking.db_subnet_group_name[0]
   vpc_security_group_ids = module.security_group_all.rds_sg

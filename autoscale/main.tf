@@ -14,7 +14,7 @@ data "aws_ami" "ubuntu" {
 
 
 data "template_file" "user_data" {
-template = var.user_data
+  template = var.user_data
 }
 
 
@@ -54,13 +54,13 @@ resource "aws_autoscaling_group" "bastion_host_asg" {
 # Web server
 resource "aws_launch_template" "web_server" {
   # count = 0
-  name_prefix            = "web-server"
-  instance_type          = var.instance_type
-  image_id               = data.aws_ami.ubuntu.id
-  
+  name_prefix   = "web-server"
+  instance_type = var.instance_type
+  image_id      = data.aws_ami.ubuntu.id
+
   vpc_security_group_ids = [var.web_sg]
   key_name               = var.key_name
-  user_data              = "${data.template_file.user_data.rendered}"
+  user_data              = data.template_file.user_data.rendered
 
   tags = {
     Name = "web-server"
@@ -92,9 +92,9 @@ resource "aws_autoscaling_group" "web_server_asg" {
     version = "$Latest"
   }
   tag {
-    key                 = "Name"
+    key = "Name"
     # value               = "Web-Server-${count.index + 1}"
-    value = "Web-Server-${substr(uuid(), 0, 2)}"
+    value               = "Web-Server-${substr(uuid(), 0, 2)}"
     propagate_at_launch = true
   }
 
