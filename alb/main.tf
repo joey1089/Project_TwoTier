@@ -1,14 +1,14 @@
 # --- alb / main.tf ----
 
 resource "aws_alb" "web_alb" {
-  name            = "web-alb"
-  subnets         = var.public_subnets
-  security_groups = [var.alb_sg]
-  idle_timeout    = 300
+  name               = "web-alb"
+  internal           = var.internal
+  load_balancer_type = var.load_balancer_type
+  subnets            = var.public_subnets
+  security_groups    = [var.alb_sg]
+  idle_timeout       = 300
 
-  depends_on = [
-    var.web_asg
-  ]
+  depends_on = [var.web_asg]
 }
 
 resource "aws_alb_target_group" "web_alb_tg" {

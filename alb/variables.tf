@@ -8,3 +8,11 @@ variable "tg_protocol" {}
 variable "vpc_id" {}
 variable "listener_port" {}
 variable "listener_protocol" {}
+
+variable "internal" {
+  default = false
+}
+
+variable "load_balancer_type" {
+  default = "application"
+}
