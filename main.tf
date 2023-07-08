@@ -66,7 +66,8 @@ module "loadbalancing" {
   tg_port           = 80
   listener_protocol = "HTTP"
   listener_port     = 80
-  alb_sg            = module.security_group_all.alb_sg
+  # alb_sg            = module.security_group_all.alb_sg
+  web_sg = module.security_group_all.web_sg
   public_subnets    = module.networking.public_subnets
   vpc_id            = module.networking.vpc_id
   web_asg           = module.autoscaling.web_asg

@@ -30,7 +30,8 @@ resource "aws_subnet" "public_subnets" {
   vpc_id                  = aws_vpc.main_vpc.id
   cidr_block              = var.public_cidrs[count.index]
   map_public_ip_on_launch = true
-  availability_zone       = random_shuffle.random_shufle_az.result[count.index]
+  # availability_zone       = random_shuffle.random_shufle_az.result[count.index]
+  availability_zone = ["us-east-1a","us-east-1b"][count.index]
 
   tags = {
     Name = "public-subnet-${count.index + 1}"
@@ -42,7 +43,8 @@ resource "aws_subnet" "private_subnets" {
   vpc_id                  = aws_vpc.main_vpc.id
   cidr_block              = var.private_cidrs[count.index]
   map_public_ip_on_launch = false
-  availability_zone       = random_shuffle.random_shufle_az.result[count.index]
+  # availability_zone       = random_shuffle.random_shufle_az.result[count.index]
+  availability_zone = ["us-east-1c","us-east-1d","us-east-1e"][count.index]
   tags = {
     Name = "private-subnet-${count.index + 1}"
   }
@@ -52,7 +54,8 @@ resource "aws_subnet" "rds_subnet" {
   count             = var.rds_private_sn_count
   vpc_id            = aws_vpc.main_vpc.id
   cidr_block        = var.rds_private_cidrs[count.index]
-  availability_zone = random_shuffle.random_shufle_az.result[count.index]
+  # availability_zone = random_shuffle.random_shufle_az.result[count.index]
+  availability_zone = ["us-east-1e","us-east-1f"][count.index]
   tags = {
     Name = "rds-subnet-${count.index + 1}"
   }

@@ -5,7 +5,7 @@ resource "aws_alb" "web_alb" {
   internal           = var.internal
   load_balancer_type = var.load_balancer_type
   subnets            = var.public_subnets
-  security_groups    = [var.alb_sg]
+  security_groups    = [var.web_sg]
   idle_timeout       = 300
 
   depends_on = [var.web_asg]

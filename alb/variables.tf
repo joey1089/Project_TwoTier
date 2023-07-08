@@ -1,6 +1,7 @@
 # --- alb / variables.tf ---
 
-variable "alb_sg" {}
+# variable "alb_sg" {}
+variable "web_sg" {}
 variable "public_subnets" {}
 variable "web_asg" {}
 variable "tg_port" {}
