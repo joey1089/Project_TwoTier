@@ -22,29 +22,29 @@ resource "aws_security_group" "bastion_sg" {
   }
 }
 
-resource "aws_security_group" "alb_sg" {
-  name        = "lb-sg"
-  description = "Allow Inbound HTTP Traffic"
-  vpc_id      = var.main_vpc
+# resource "aws_security_group" "alb_sg" {
+#   name        = "lb-sg"
+#   description = "Allow Inbound HTTP Traffic"
+#   vpc_id      = var.main_vpc
 
-  ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
+#   ingress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
 
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
+#   egress {
+#     from_port   = 0
+#     to_port     = 0
+#     protocol    = "-1"
+#     cidr_blocks = ["0.0.0.0/0"]
+#   }
+# }
 
 resource "aws_security_group" "web_sg" {
   name        = "web-sg"
-  description = "Allow ssh inbound traffic from Bastion, and HTTP inbound traffic from loadbalancer"
+  description = "Allow ssh inbound traffic from Bastion and allow http"
   vpc_id      = var.main_vpc
 
   ingress {
@@ -79,15 +79,8 @@ resource "aws_security_group" "rds_sg" {
     from_port       = 3306
     to_port         = 3306
     protocol        = "tcp"
-    security_groups = [aws_security_group.alb_sg.id]
+    security_groups = [aws_security_group.web_sg.id]
   }
-
-  # ingress {
-  #   from_port       = 22
-  #   to_port         = 22
-  #   protocol        = "tcp"
-  #   cidr_blocks = ["0.0.0.0/0"]
-  # }
 
   egress {
     from_port   = 0
